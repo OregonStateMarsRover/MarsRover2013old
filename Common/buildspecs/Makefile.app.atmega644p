@@ -1,0 +1,14 @@
+all: $(TARGET) $(PROJECT).hex $(PROJECT).eep
+
+%.hex: $(TARGET)
+	avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $< $@
+
+%.eep: $(TARGET)
+	avr-objcopy $(HEX_EEPROM_FLAGS) -O ihex $< $@  || exit 0
+
+%.lss: $(TARGET)
+	avr-objdump -h -S $< > $@
+
+## Program
+program: all
+	avrdude -c avrispmkII -F -P usb -p atmega644p -e -U flash:w:$(PROJECT).hex	-B 4

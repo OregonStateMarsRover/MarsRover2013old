@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/marsrover2011/!svn/ver/563/Software/Common/Interfaces/Serial/ATMEGA
+END
+USART.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/marsrover2011/!svn/ver/563/Software/Common/Interfaces/Serial/ATMEGA/USART.c
+END
+USART.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/marsrover2011/!svn/ver/563/Software/Common/Interfaces/Serial/ATMEGA/USART.h
+END
+Makefile.app
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/marsrover2011/!svn/ver/255/Software/Common/Interfaces/Serial/ATMEGA/Makefile.app
+END
+USART-test.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/marsrover2011/!svn/ver/266/Software/Common/Interfaces/Serial/ATMEGA/USART-test.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/marsrover2011/!svn/ver/308/Software/Common/Interfaces/Serial/ATMEGA/Makefile
+END

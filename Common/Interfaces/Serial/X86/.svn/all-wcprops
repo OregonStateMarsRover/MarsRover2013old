@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/marsrover2011/!svn/ver/493/Software/Common/Interfaces/Serial/X86
+END
+USART.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/marsrover2011/!svn/ver/493/Software/Common/Interfaces/Serial/X86/USART.c
+END
+USART.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/marsrover2011/!svn/ver/421/Software/Common/Interfaces/Serial/X86/USART.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/marsrover2011/!svn/ver/421/Software/Common/Interfaces/Serial/X86/Makefile
+END

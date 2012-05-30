@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/marsrover2011/!svn/ver/598/Software/Common/buildspecs
+END
+Makefile.app.x86
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/marsrover2011/!svn/ver/288/Software/Common/buildspecs/Makefile.app.x86
+END
+Makefile.x86
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/marsrover2011/!svn/ver/492/Software/Common/buildspecs/Makefile.x86
+END
+Makefile.app.atmega48
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/marsrover2011/!svn/ver/255/Software/Common/buildspecs/Makefile.app.atmega48
+END
+Makefile.atmega48
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/marsrover2011/!svn/ver/308/Software/Common/buildspecs/Makefile.atmega48
+END
+Makefile.app.atmega644p
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/marsrover2011/!svn/ver/598/Software/Common/buildspecs/Makefile.app.atmega644p
+END
+Makefile.atmega644p
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/marsrover2011/!svn/ver/598/Software/Common/buildspecs/Makefile.atmega644p
+END
+Makefile.app.xmega
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/marsrover2011/!svn/ver/253/Software/Common/buildspecs/Makefile.app.xmega
+END
+Makefile.xmega
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/marsrover2011/!svn/ver/495/Software/Common/buildspecs/Makefile.xmega
+END

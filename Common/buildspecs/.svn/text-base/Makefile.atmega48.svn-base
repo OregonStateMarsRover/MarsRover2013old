@@ -1,0 +1,35 @@
+MCU = atmega48
+TARGET = $(PROJECT).elf
+CC = avr-gcc
+AVRTYPE = ATMEGA
+
+## Options common to compile, link and assembly rules
+COMMON = -mmcu=$(MCU)
+
+## Compile options common for all C compilation units.
+CFLAGS = $(COMMON) -D__AVR_ATmega48P__
+CFLAGS += -D AVRGCC -Wall -gdwarf-2  -Os -fsigned-char
+#CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d 
+CFLAGS += -I$(COMMON_DIR)/Interfaces/Serial/$(AVRTYPE) -DF_CPU=1000000UL
+
+## Assembly specific flags
+ASMFLAGS = $(COMMON)
+ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
+
+## Linker flags
+LDFLAGS = $(COMMON)
+LDFLAGS += -Wl,-Map=$(PROJECT).map,--cref 
+
+LIBS = -lm
+
+## Intel Hex file production flags
+HEX_FLASH_FLAGS = -R .eeprom
+
+HEX_EEPROM_FLAGS = -j .eeprom
+HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
+HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0
+
+RINGBUFFER_OBJS = $(COMMON_DIR)/RingBuffer/RingBuffer.o-$(SYSTEM)
+SERIAL_LIB = $(COMMON_DIR)/Interfaces/Serial/$(AVRTYPE)/libUSART.a-$(SYSTEM)
+COMM_LIB = $(COMMON_DIR)/CommInterface/libCommInterface.a-$(SYSTEM)
+
