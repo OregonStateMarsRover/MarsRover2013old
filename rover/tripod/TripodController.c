@@ -43,7 +43,7 @@ void TripodControllerTick(Rover * rov) {
 		SendMessage(rov, &commPkt); //from /rover/ProcessManager/ProcessManager.c
 	}
 	
-	if (PacketQueueCount(&tripodController.pktQueue) && !CommTransmissionInProgress(&tripodController.inf)) { // a queued packet is ready to be transmitted out
+	if (PacketQueueCount(&tripodController.pktQueue) && !CommTransmissionInProgress(&tripodController.inf)) { // a queued packet is ready to be transmitted out. CommTransmissionInProgress is from /Common/CommInterface/CommInterface.c
 		if (PacketQueueGetPacket(&tripodController.pktQueue, &commPkt)) { //from /Common/CommInterface/CommInterface.c
 			commPkt.target = 0x02; // target the tripod board
 			CommSendPacket(&tripodController.inf, &commPkt); //from /Common/CommInterface/CommInterface.c
