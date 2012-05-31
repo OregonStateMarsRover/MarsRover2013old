@@ -6,9 +6,12 @@
 
 void TripodControllerInit() {
 	USART_Open(&tripodController.port, 1, USART_BAUD_38400, 10, 10, true, true); //from /Common/Interfaces/Serial/X86/USART.c. Opens up a USART serial to send packets over. Arguments are USART * serial, unsigned char port, unsigned char baud_rate, unsigned short tx_buf, unsigned short rx_buf, bool use_rs485.
+	//Open up a USART on the tripodController port 1 with a baud rate of 38,400, transmit and receive buffer times of 10 (ms?), enable the receive buffer, enable rs485
 	CommInterfaceInit(&tripodController.inf, &tripodController.port); //from /Common/CommInterface/CommInterface.c.
+	//Initialize a comm interface between the tripod controller comm interface and the USART port.
 	
 	PacketQueueInit2(&tripodController.pktQueue, 6, 20, tripodController.queuedPackets, tripodController.queuedData); //from /rover/PacketQueuer.c
+	//Initialize the packet queue on the tripod controller. Use 6 packets, a packet length of 20, the queued packets in the tripodController, and the queued data in the tripodController.
 }
 
 void TripodControllerHandleMessage(Rover * rov, CommPacket * pkt) {
