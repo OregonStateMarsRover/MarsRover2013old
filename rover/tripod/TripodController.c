@@ -25,6 +25,7 @@ void TripodControllerHandleMessage(Rover * rov, CommPacket * pkt) {
 	SendMessage(rov, pkt);*/
 	
 	PacketQueueAddPacket(&tripodController.pktQueue, pkt); //from /rover/PacketQueuer.c.
+	//Pretty self-explanatory; add incoming messages to the packet queue.
 }
 
 void TripodControllerTick(Rover * rov) {
@@ -35,21 +36,27 @@ void TripodControllerTick(Rover * rov) {
 	char ret;
 	
 	if (CommRXPacketsAvailable(&tripodController.inf) && !TransmissionInProgress(rov)) { //CommRXPacketsAvailable is from /Common/CommInterface/CommInterface.c. TransmissionInProgress() is from /rover/ProcessManager/ProcessManager.c.
+		//if the tripodController received packets and there currently are no transmissions in progress to the rover?, continue.
 		ret = CommGetPacket(&tripodController.inf, &commPkt, 20); //from /Common/CommInterface/CommInterface.c
+		//get the packet from the tripodController's comm interface
 		
-		if (!ret) {
-			data[0]=0xFF;
-			commPkt.length=1;
+		if (!ret) { //if there was no packet...
+			data[0]=0xFF; //set the data to FF
+			commPkt.length=1; //and the packet length to 1.
 		}
 		
-		commPkt.target = TARGET_GUI_TRIPOD;
+		commPkt.target = TARGET_GUI_TRIPOD; //set the packet's target
 		SendMessage(rov, &commPkt); //from /rover/ProcessManager/ProcessManager.c
-	}
+		//Send the packet to the rover?
+	} //is this if statement for incoming and the other for outgoing packets?
 	
 	if (PacketQueueCount(&tripodController.pktQueue) && !CommTransmissionInProgress(&tripodController.inf)) { // a queued packet is ready to be transmitted out. CommTransmissionInProgress is from /Common/CommInterface/CommInterface.c
+		//if there are packets in the queue and a transmission is not currently in progress, continue.
 		if (PacketQueueGetPacket(&tripodController.pktQueue, &commPkt)) { //from /Common/CommInterface/CommInterface.c
+			//if PacketQueueGetPacket returned a packet, proceed to send it.
 			commPkt.target = 0x02; // target the tripod board
 			CommSendPacket(&tripodController.inf, &commPkt); //from /Common/CommInterface/CommInterface.c
+			//send the packet to the tripod board
 		}
 	}
 }
