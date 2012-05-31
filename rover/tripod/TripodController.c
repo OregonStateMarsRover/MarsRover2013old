@@ -5,7 +5,7 @@
 #include "../ProcessManager/ProcessManager.h"
 
 void TripodControllerInit() {
-	USART_Open(&tripodController.port, 1, USART_BAUD_38400, 10, 10, true, true);
+	USART_Open(&tripodController.port, 1, USART_BAUD_38400, 10, 10, true, true); //from Common/Interfaces/Serial/X86/USART.c. Opens up a USART serial to send packets over. Arguments are USART * serial, unsigned char port, unsigned char baud_rate, unsigned short tx_buf, unsigned short rx_buf, bool use_rs485.
 	CommInterfaceInit(&tripodController.inf, &tripodController.port);
 	
 	PacketQueueInit2(&tripodController.pktQueue, 6, 20, tripodController.queuedPackets, tripodController.queuedData);
@@ -26,7 +26,7 @@ void TripodControllerHandleMessage(Rover * rov, CommPacket * pkt) {
 
 void TripodControllerTick(Rover * rov) {
 	// maybe check in here if we've received data from the accelerometer or barometer
-	CommPacket commPkt;
+	CommPacket commPkt; //Struct CommPacket has 
 	unsigned char data[20];
 	commPkt.data=data;
 	char ret;
