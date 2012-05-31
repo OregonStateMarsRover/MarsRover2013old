@@ -31,7 +31,7 @@ void TripodControllerTick(Rover * rov) {
 	commPkt.data=data;
 	char ret;
 	
-	if (CommRXPacketsAvailable(&tripodController.inf) && !TransmissionInProgress(rov)) { //CommRXPacketsAvailable is from /Common/CommInterface/CommInterface.c. 
+	if (CommRXPacketsAvailable(&tripodController.inf) && !TransmissionInProgress(rov)) { //CommRXPacketsAvailable is from /Common/CommInterface/CommInterface.c. TransmissionInProgress() is from /rover/ProcessManager/ProcessManager.c.
 		ret = CommGetPacket(&tripodController.inf, &commPkt, 20); //from /Common/CommInterface/CommInterface.c
 		
 		if (!ret) {
