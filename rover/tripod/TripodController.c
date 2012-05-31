@@ -32,7 +32,7 @@ void TripodControllerTick(Rover * rov) {
 	char ret;
 	
 	if (CommRXPacketsAvailable(&tripodController.inf) && !TransmissionInProgress(rov)) { 
-		ret = CommGetPacket(&tripodController.inf, &commPkt, 20);
+		ret = CommGetPacket(&tripodController.inf, &commPkt, 20); //from /Common/CommInterface/CommInterface.c
 		
 		if (!ret) {
 			data[0]=0xFF;
@@ -40,7 +40,7 @@ void TripodControllerTick(Rover * rov) {
 		}
 		
 		commPkt.target = TARGET_GUI_TRIPOD;
-		SendMessage(rov, &commPkt);
+		SendMessage(rov, &commPkt); //from /rover/ProcessManager/ProcessManager.c
 	}
 	
 	if (PacketQueueCount(&tripodController.pktQueue) && !CommTransmissionInProgress(&tripodController.inf)) { // a queued packet is ready to be transmitted out
