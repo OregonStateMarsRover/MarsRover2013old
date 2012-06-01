@@ -6,17 +6,18 @@
 #include "../PacketQueuer/PacketQueuer.h"
 
 struct TripodControllerData {
-	CommInterface inf;
-	USART port;
+	CommInterface inf; //Tripod comm interface;
+	USART port; //instantiation of the USART
 	
-	PacketQueue pktQueue;
-	CommPacket queuedPackets[6];
-	unsigned char queuedData[6 * 20];
+	PacketQueue pktQueue; //TripodController packet queue for sending.
+	CommPacket queuedPackets[6]; //instantiate 6 CommPackets
+	unsigned char queuedData[6 * 20]; //allocate a queuedData variable with 20 chars for data for each of the 6 packets.
 };
 
 struct TripodControllerData tripodController;
 
-void TripodControllerInit();
+//function prototypes for TripodController.c
+void TripodControllerInit(); 
 void TripodControllerHandleMessage(Rover * rov, CommPacket * pkt);
 void TripodControllerTick(Rover * rov);
 
