@@ -101,7 +101,7 @@ ISR(BADISR_vect) {
 		_delay_ms(100);
 	}
 }
-
+//changes the clock freq to the right one. whatever that is.
 void ChangeClockFreq() {
 	uint8_t clkCtrl;
 	LedOff(LED_INT);
@@ -131,6 +131,7 @@ void ChangeClockFreq() {
 	LedOn(LED_INT);
 }
 
+//loop in the minboard
 int main(void) {
 	unsigned int ledTimer = 0;
 	Rover rov;
@@ -142,42 +143,53 @@ int main(void) {
 	CommPacket sendPkt;	
 
 	//_delay_ms(500);
+	
+	//setup LEDs
 	LedInit();
 	LedAllOff();
 	LedOn(LED_TRI);
+	
 	ChangeClockFreq(); // use 16MHz clock
+	
 	sei(); // Enables global interrupt
 	
+	//reset PORTA
 	PORTA.DIRSET = PIN0_bm;
 	PORTA.DIRSET = PIN1_bm;
 	PORTA.DIRSET = PIN2_bm;
 	PORTA.DIRSET = PIN3_bm;
-
 	// Use PORTA PIN0 and 4 for debugging
 	PORTA.DIRSET = PIN4_bm;
 
+	//set up USART ports for communcations
 	USART_InitPortStructs();
+	//set up Timers for LED
 	InitTimers();
+	//Setting up rover struct for the first time only happens once
 	InitRover(&rov);
+	
+	//Init all Controllers used
 	TestControllerInit();
 	MotorControllerInit();
 	/*TripodControllerInit();
 	GPSInitialize();
 	ArmControllerInit();
-
-	RegisterModule(&rov, TARGET_GPS_CONTROLLER, &GPSControllerHandleMessage, &GPSControllerTick);
 	*/
+	
+	//setup handleMessage and tick of each controller for DispatchMessages and RunModules
+	RegisterModule(&rov, TARGET_TEST_CONTROLLER, &TestControllerHandleMessage, &TestControllerTick);
 	RegisterModule(&rov, TARGET_MOTOR_CONTROLLER, &MotorControllerHandleMessage, &MotorControllerTick);
+	//RegisterModule(&rov, TARGET_GPS_CONTROLLER, &GPSControllerHandleMessage, &GPSControllerTick);
 	/*RegisterModule(&rov, TARGET_TEST_CONTROLLER, &TestControllerHandleMessage, &TestControllerTick);
 	RegisterModule(&rov, TARGET_TRIPOD_CONTROLLER, &TripodControllerHandleMessage, &TripodControllerTick);
 	RegisterModule(&rov, TARGET_ARM_CONTROLLER, &ArmControllerHandleMessage, &ArmControllerTick);
 */	
 
-	RegisterModule(&rov, TARGET_TEST_CONTROLLER, &TestControllerHandleMessage, &TestControllerTick);
 	//USART_Open(&debugPort, 5, USART_BAUD_115200, 255, 255, false, false);
 	_delay_ms(500);
 	LedOff(LED_TRI);
 	int i = 0;
+	//loops forever
 	while(1) {
 		
 		DispatchMessages(&rov); // allow all modules to process received packets
@@ -187,6 +199,7 @@ int main(void) {
 		//USART_Write(&debugPort, "A", 1);
 		//_delay_ms(500);
 
+		//setup data for sending
 		char dat[10];
 		//dat[0]=i;
 		dat[0]='X';
@@ -199,13 +212,18 @@ int main(void) {
 		if(i == 10){
 			i = 0;
 		}
-
+		
+		//create compacket
 		CommPacket respPkt;
+		//set target - gui
 		respPkt.target = TARGET_GUI;
+		//set size of packet to be sent
 		respPkt.length = 6;
+		//setting data to be sent
 		respPkt.data = dat;
 		//SendMessage(&rov,&respPkt);
 
+		//Toogle LED every 5000 ms
 		ledTimer++;
 		if (ledTimer>5000) 
 		{
@@ -218,6 +236,7 @@ int main(void) {
 		}
 	}
 	
+	//frees data
 	CommDeleteInterface(&rov.dataIface);
 }
 
